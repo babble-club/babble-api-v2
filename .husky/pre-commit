@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Run linting and exit if it fails
+bun biome lint || exit 1
+
+bun biome format --write
+git add -A .  # Stage any auto-fixes

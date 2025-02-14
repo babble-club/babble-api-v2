@@ -1,0 +1,34 @@
+services:
+    postgres:
+        image: postgres:15-alpine
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_PASSWORD=tSpNnrbppi
+            - POSTGRES_USER=root
+            - POSTGRES_DB=admin
+        volumes:
+            - /Users/amittiwari/Infra/dock-containers/postgres:/var/lib/pgsql/data
+
+    redis:
+        image: redis/redis-stack-server:latest
+        ports:
+            - '6379:6379'
+        healthcheck:
+            test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
+        volumes:
+            - /Users/amittiwari/Infra/dock-containers/redis/redis_data/data
+        environment:
+            #      - REDIS_USERNAME=redis_dev
+            #      - REDIS_PASSWORD=wWN60jcLmz
+            - REDIS_ARGS="--requirepass wWN60jcLmz"
+
+    localstack:
+        image: localstack/localstack
+        ports:
+            - '4566:4566'
+        environment:
+            - SERVICES=s3
+            - DEFAULT_REGION=us-east-1
+            - AWS_ACCESS_KEY_ID=test
+            - AWS_SECRET_ACCESS_KEY=test
