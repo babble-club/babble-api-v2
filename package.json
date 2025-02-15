@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "bun --watch src/index.ts",
     "dev:setup": "bash scripts/setup-dev.sh",
+    "ca:seed": "bash scripts/setup-clean-arch-seed.sh",
     "build": "bun build ./src/index.ts --outdir ./dist",
     "start": "bun run dist/index.js",
     "test": "bun test",
