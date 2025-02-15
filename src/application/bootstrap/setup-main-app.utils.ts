@@ -17,13 +17,19 @@ import { errorHandler } from '@/interface/middleware/error-handler';
 import { swaggerConfig } from '@/interface/openapi/swagger.config';
 
 // // Shared utilities and constants
-// import { ServiceLocator } from '@/shared/utils/service-locator.utils';
+import { ServiceLocator } from '@/shared/utils/service-locator.utils';
+import AppLogger from '@/shared/utils/app-logger.utils';
 // import { ServiceIdentifiers } from '@/shared/constants/service-identifiers';
+
+const logger = new AppLogger(__filename).child({
+  filepath: __filename,
+});
 
 export const setupApp = async (): Promise<Elysia> => {
   // Seting up all dependencies
-  // const serviceLocator = ServiceLocator.getInstance();
-  // await setupDependencies(serviceLocator);
+  const serviceLocator = ServiceLocator.getInstance();
+  logger.debug('serviceLocator', serviceLocator);
+  await setupDependencies(serviceLocator);
 
   // Checking if everything's ready
   // const systemReadinessVerifier = serviceLocator.get<SystemReadinessVerifier>(
@@ -39,7 +45,7 @@ export const setupApp = async (): Promise<Elysia> => {
   // Setting up the app finally
   const app = new Elysia()
     .onError(({ error, set }) => {
-      console.error('Error caught:', error);
+      logger.error('Error caught:', error);
       set.status = 400;
       return {
         error: {

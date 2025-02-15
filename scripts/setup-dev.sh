@@ -330,7 +330,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         echo -e "\n${YELLOW}🚀 Starting development server...${NC}"
         echo "You can stop the server with Ctrl+C"
         echo "Logs will appear below:"
-        exec bun --watch src/index.ts
+        exec bun run dev
     fi
 fi
 
