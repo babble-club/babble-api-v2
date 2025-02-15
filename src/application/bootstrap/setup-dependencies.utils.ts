@@ -13,6 +13,7 @@ import { PostgresConfigProvider } from '@/infrastructure/persistence/postgres-co
 import type { AppConfigParams } from '@/infrastructure/config/types/app-config-params.types';
 import { LocalConfigSource } from '@/infrastructure/config/local-config-source';
 import { AppConfigProvider } from '@/infrastructure/config/configuration.provider';
+import AppLogger from '@/shared/utils/app-logger.utils';
 
 export const setupDependencies = async (serviceLocator: ServiceLocator): Promise<void> => {
   // Initialize config sources and providers
@@ -37,7 +38,6 @@ export const setupDependencies = async (serviceLocator: ServiceLocator): Promise
     appConfig.database.babbleDev,
     dbAuthStrategy
   );
-
   const postgresConnection = PostgresConnection.getInstance(postgresConfigProvider);
   await postgresConnection.connect();
 
