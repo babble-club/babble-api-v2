@@ -5,8 +5,8 @@ services:
             - 5432:5432
         environment:
             - POSTGRES_PASSWORD=tSpNnrbppi
-            - POSTGRES_USER=root
-            - POSTGRES_DB=admin
+            - POSTGRES_USER=babble_dev
+            - POSTGRES_DB=babble_dev
         volumes:
             - /Users/amittiwari/Infra/dock-containers/postgres:/var/lib/pgsql/data
 
@@ -29,6 +29,6 @@ services:
             - '4566:4566'
         environment:
             - SERVICES=s3
-            - DEFAULT_REGION=us-east-1
-            - AWS_ACCESS_KEY_ID=test
-            - AWS_SECRET_ACCESS_KEY=test
+            - DEFAULT_REGION=ap-south-2
+            - AWS_ACCESS_KEY_ID=babble_dev
+            - AWS_SECRET_ACCESS_KEY=babble_dev
