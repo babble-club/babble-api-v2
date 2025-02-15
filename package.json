@@ -1,18 +1,8 @@
 {
-  "name": "babble-api-v2",
+  "name": "babbpe-api-v2",
   "version": "1.0.0",
-  "module": "index.ts",
   "type": "module",
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@types/bun": "latest",
-    "husky": "^9.1.7"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
   "scripts": {
-    "prepare": "husky",
     "dev": "bun --watch src/index.ts",
     "dev:setup": "bash scripts/setup-dev.sh",
     "build": "bun build ./src/index.ts --outdir ./dist",
@@ -22,6 +12,16 @@
     "test:coverage": "bun test --coverage",
     "lint": "biome lint .",
     "format": "biome format . --write",
-    "lint:fix": "biome check --apply ."
+    "lint:fix": "biome check --apply .",
+    "db:migrate": "bun run scripts/db/migrate.ts",
+    "db:rollback": "bun run scripts/db/rollback.ts",
+    "prepare": "husky install",
+    "db:generate": "drizzle-kit generate:pg"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@biomejs/biome": "latest",
+    "bun-types": "latest",
+    "husky": "^8.0.0"
   }
 }
