@@ -28,7 +28,6 @@ const logger = new AppLogger(__filename).child({
 export const setupApp = async (): Promise<Elysia> => {
   // Seting up all dependencies
   const serviceLocator = ServiceLocator.getInstance();
-  logger.debug(serviceLocator, 'serviceLocator');
   await setupDependencies(serviceLocator);
 
   // Checking if everything's ready
