@@ -17,6 +17,7 @@ DIRECTORIES=(
   "application"
   "domain/entities/coupon"
   "domain/entities"
+  "domain/interfaces/repositories"
   "domain/interfaces"
   "domain/value-objects"
   "domain"

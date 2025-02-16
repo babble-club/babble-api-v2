@@ -1,6 +1,5 @@
 // Application bootstrap
 import { setupApp } from '@/application/bootstrap/setup-main-app.utils';
-
 // Shared utilities
 import { ValidationMessages } from '@/shared/constants/validation-messages';
 
@@ -11,7 +10,6 @@ import { ValidationMessages } from '@/shared/constants/validation-messages';
 async function bootstrap() {
   try {
     const app = await setupApp();
-
     // Start the server
     app.listen(process.env.PORT || 3000, () => {
       console.log(`🚀 Server is running on port ${process.env.PORT || 3000}`);
@@ -24,7 +22,6 @@ async function bootstrap() {
     process.exit(1);
   }
 }
-
 // Start the application
 bootstrap().catch((error) => {
   console.error('Failed to start server:', error);

@@ -9,7 +9,7 @@ import { verifySystemReadiness } from '@/application/bootstrap/verify-system-rea
 
 // Application services and commands
 // import { CreateCouponCommand } from '@/application/commands/create-coupon.command';
-// import type { SystemReadinessVerifier } from '@/application/services/system-readiness-verifier.service';
+import type { SystemReadinessVerifier } from '@/application/services/system-readiness-verifier.service';
 
 // // Interface layer
 // import { CouponController } from '@/interface/http/controllers/v1/coupon.controller';
@@ -19,7 +19,7 @@ import { swaggerConfig } from '@/interface/openapi/swagger.config';
 // // Shared utilities and constants
 import { ServiceLocator } from '@/shared/utils/service-locator.utils';
 import AppLogger from '@/shared/utils/app-logger.utils';
-// import { ServiceIdentifiers } from '@/shared/constants/service-identifiers';
+import { ServiceIdentifiers } from '@/shared/constants/service-identifiers';
 
 const logger = new AppLogger(__filename).child({
   filepath: __filename,
@@ -31,11 +31,11 @@ export const setupApp = async (): Promise<Elysia> => {
   await setupDependencies(serviceLocator);
 
   // Checking if everything's ready
-  // const systemReadinessVerifier = serviceLocator.get<SystemReadinessVerifier>(
-  // ServiceIdentifiers.SYSTEM_READINESS_VERIFIER
-  // );
+  const systemReadinessVerifier = serviceLocator.get<SystemReadinessVerifier>(
+    ServiceIdentifiers.SYSTEM_READINESS_VERIFIER
+  );
 
-  // await verifySystemReadiness(systemReadinessVerifier);
+  await verifySystemReadiness(systemReadinessVerifier);
 
   // const createCouponCommand = new CreateCouponCommand(
   //   serviceLocator.get(ServiceIdentifiers.COUPON_REPOSITORY)
