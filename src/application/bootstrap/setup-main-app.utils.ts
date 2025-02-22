@@ -15,6 +15,7 @@ import AppLogger from '@/shared/utils/app-logger.utils';
 import { getDotEnv } from '@/shared/utils/dot-env-provider.utils';
 import { ServiceLocator } from '@/shared/utils/service-locator.utils';
 import { ServiceIdentifiers } from '@/shared/constants/service-identifiers';
+import { Routes } from './routes.utils';
 
 export const setupApp = async () => {
   const logger = new AppLogger(__filename).child({
@@ -44,7 +45,8 @@ export const setupApp = async () => {
   app.use(requestHandlerMiddleware);
   app.use(errorHandlerMiddleware);
 
-  // initRoutesV1(app);
+  const routes = new Routes();
+  routes.v1(app);
 
   app.get('/health', (req, res) => {
     logger.debug(req, 'health check');
