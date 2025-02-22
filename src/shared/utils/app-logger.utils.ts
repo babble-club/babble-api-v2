@@ -1,6 +1,6 @@
 import pino, { type Logger, type ChildLoggerOptions, Level } from 'pino';
 import path from 'node:path';
-import { getDotEnv } from './dotEnv-provider.utils';
+import { getDotEnv } from './dot-env-provider.utils';
 import { Environment } from '../environment';
 
 type CustomLevels = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';

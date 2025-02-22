@@ -1,31 +1,25 @@
 // External dependencies
-import { Elysia } from 'elysia';
-import { cors } from '@elysiajs/cors';
-import { swagger } from '@elysiajs/swagger';
+import express from 'express';
+import cors from 'cors';
+
+import requestHandlerMiddleware from '@/interface/middleware/request-handler.middleware';
+import errorHandlerMiddleware from '@/interface/middleware/error-handler.middleware';
 
 // Application bootstrap
 import { setupDependencies } from '@/application/bootstrap/setup-dependencies.utils';
 import { verifySystemReadiness } from '@/application/bootstrap/verify-system-readiness.utils';
-
-// Application services and commands
-// import { CreateCouponCommand } from '@/application/commands/create-coupon.command';
 import type { SystemReadinessVerifier } from '@/application/services/system-readiness-verifier.service';
 
-// // Interface layer
-// import { CouponController } from '@/interface/http/controllers/v1/coupon.controller';
-import { errorHandler } from '@/interface/middleware/error-handler';
-import { swaggerConfig } from '@/interface/openapi/swagger.config';
-
-// // Shared utilities and constants
-import { ServiceLocator } from '@/shared/utils/service-locator.utils';
+// Shared utilities and constants
 import AppLogger from '@/shared/utils/app-logger.utils';
+import { getDotEnv } from '@/shared/utils/dot-env-provider.utils';
+import { ServiceLocator } from '@/shared/utils/service-locator.utils';
 import { ServiceIdentifiers } from '@/shared/constants/service-identifiers';
 
-const logger = new AppLogger(__filename).child({
-  filepath: __filename,
-});
-
-export const setupApp = async (): Promise<Elysia> => {
+export const setupApp = async () => {
+  const logger = new AppLogger(__filename).child({
+    filepath: __filename,
+  });
   // Seting up all dependencies
   const serviceLocator = ServiceLocator.getInstance();
   await setupDependencies(serviceLocator);
@@ -37,36 +31,25 @@ export const setupApp = async (): Promise<Elysia> => {
 
   await verifySystemReadiness(systemReadinessVerifier);
 
-  // const createCouponCommand = new CreateCouponCommand(
-  //   serviceLocator.get(ServiceIdentifiers.COUPON_REPOSITORY)
-  // );
+  const app = express();
 
-  // Setting up the app finally
-  const app = new Elysia()
-    .onError(({ error, set }) => {
-      logger.error('Error caught:', error);
-      set.status = 400;
-      return {
-        error: {
-          message: error instanceof Error ? error.message : 'Unknown error',
-          code: (error as any).code || 'VALIDATION_ERROR',
-        },
-      };
-    })
-    .use(cors())
-    .use(errorHandler())
-    .use(swagger({ documentation: swaggerConfig }));
+  const corsOptions = {
+    origin: getDotEnv('CORS_ORIGIN') as string,
+    maxAge: getDotEnv('CORS_MAX_AGE') as number,
+  };
 
-  // Change from new Elysia to group
-  app.group('/api/v1', (app) => {
-    // new CouponController(app, createCouponCommand);
-    return app;
+  app.use(cors(corsOptions));
+  app.use(express.json());
+  // app.use(helmet());
+  app.use(requestHandlerMiddleware);
+  app.use(errorHandlerMiddleware);
+
+  // initRoutesV1(app);
+
+  app.get('/health', (req, res) => {
+    logger.debug(req, 'health check');
+    res.status(200).send('ok');
   });
-
-  console.log(
-    'Registered Routes:',
-    app.routes.map((r) => `${r.method} ${r.path}`)
-  );
 
   return app;
 };

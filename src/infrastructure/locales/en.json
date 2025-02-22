@@ -1,0 +1,23 @@
+{
+  "ok": "OK",
+  "somethingBadHappened": "Something bad happened.",
+  "success": {
+    "VR-001": "Assessment in Progess",
+    "VR-002": "Date Assessment fetched successfully",
+    "VR-003": "Date List fetched successfully",
+    "VR-004": "Topics fetched successfully",
+    "VR-005": "Assessment fetched successfully",
+    "VR-006": "Assessment in Progess or Not submitted for the user",
+    "VR-007": "Hand Gestures saved successfully",
+    "VR-008": "Eye Tracking saved successfully"
+  },
+  "error": {
+    "VR-001": "Error in recording raw data",
+    "VR-002": "Date Assessment fetched failed",
+    "VR-003": "Date List fetched failed",
+    "VR-004": "Topics fetched failed",
+    "VR-005": "Assessment fetched failed",
+    "VR-007": "Hand Gestures save failed",
+    "VR-008": "Eye Tracking saved failed"
+  }
+}
