@@ -1,10 +1,10 @@
-import type { Result } from '@/shared/utils/result.utils';
-import type { ICSUser } from '@/shared/types/auth.types';
+import type { Request } from 'express';
 
-export interface Authenticator {
-  authenticate(token: string): Result<ICSUser>;
-}
-
-export interface Authorizer {
-  authorize(user: ICSUser, requiredRoles: string[]): Result<boolean>;
+export interface ContextualRequest extends Request {
+  context: {
+    translate: (
+      key: 'error' | 'success' | 'ok' | 'somethingBadHappened',
+      ...args: (string | number)[]
+    ) => string;
+  };
 }

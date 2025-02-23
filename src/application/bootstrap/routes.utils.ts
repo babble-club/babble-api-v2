@@ -2,6 +2,7 @@ import type { Application } from 'express';
 import { API_VER } from '@/shared/constants/common';
 import { useExpressServer } from 'routing-controllers';
 import AppLogger from '@/shared/utils/app-logger.utils';
+import isAuthorized from '@/interface/middleware/auth.middelware';
 // import isAuthorized from '@middlewares/auth.middleware';
 // import { AuthController } from '@modulesV1/auth/auth.controller';
 
@@ -21,9 +22,7 @@ export class Routes {
       controllers: [
         // AuthController,
       ], // we specify controllers we want to use
-      middlewares: [
-        // isAuthorized
-      ],
+      middlewares: [isAuthorized],
       defaultErrorHandler: false,
       routePrefix: basePath,
     });

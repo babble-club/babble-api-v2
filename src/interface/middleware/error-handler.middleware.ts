@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import HttpErrorProvider from '@/shared/utils/http-error.provider';
+import HttpErrorProvider from '@/interface/http/response/http-error.provider';
 import { HttpStatusCode } from '@/interface/http/constants/http-status';
 import { getDotEnv } from '@/shared/utils/dot-env-provider.utils';
 import AppLogger from '@/shared/utils/app-logger.utils';
