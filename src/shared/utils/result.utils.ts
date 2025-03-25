@@ -27,7 +27,7 @@ export class Result<T> {
     return new Result<U>(true, undefined, value);
   }
 
-  public static fail<U>(error: string): Result<U> {
-    return new Result<U>(false, error);
+  public static fail<U>(error: string | unknown): Result<U> {
+    return new Result<U>(false, error instanceof Error ? error.message : String(error));
   }
 }
