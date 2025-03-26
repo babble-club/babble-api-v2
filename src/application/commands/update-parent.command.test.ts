@@ -48,8 +48,8 @@ it('should fail to update a non-existent parent', async () => {
     deletedAt: null,
   });
 
-  expect(result.isFailure).toBe(true);
-  expect(result.error).toBe('Parent not found');
+  expect(!result.isSuccess()).toBe(true);
+  expect(result.getError()).toBe('Parent not found');
 });
 
 it('should handle update with invalid input', async () => {
@@ -74,8 +74,8 @@ it('should handle update with invalid input', async () => {
     deletedAt: null,
   });
 
-  expect(result.isFailure).toBe(true);
-  expect(result.error).toBe('Invalid age provided');
+  expect(!result.isSuccess()).toBe(true);
+  expect(result.getError()).toBe('Invalid age provided');
 });
 
 it('should update a parent with minimal details', async () => {
@@ -120,8 +120,8 @@ it('should update a parent with minimal details', async () => {
     deletedAt: null,
   });
 
-  expect(result.isSuccess).toBe(true);
-  expect(result.value.name).toBe('Jane Doe');
+  expect(result.isSuccess()).toBe(true);
+  expect(result.getValue().name).toBe('Jane Doe');
 });
 
 describe('UpdateParentCommand', () => {
