@@ -17,5 +17,5 @@ export interface UpdateParentInput {
   status: parentStatuses;
   createdAt: number;
   updatedAt: number;
-  deletedAt: number;
+  deletedAt: number | null;
 }
